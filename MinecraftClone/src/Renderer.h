@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "Shaders/Shader.h"
+#include <stb_image.h>
 
 // FRAME SIZE BUFFER --------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -31,8 +32,9 @@ private:
 	int width, height;
 	GLFWwindow* window;
 	unsigned int VAO, VBO, EBO;
-	glm::mat4 trans;
+	//glm::mat4 trans;
 	std::vector<Shader> shaderCollection;
+	unsigned int texture1;
 // CONSTRUCTOR --------------------------------
 public:
 	Renderer(int width, int height) : width(width), height(height), gameRunning(true)
@@ -65,10 +67,10 @@ public:
 
 		//Vertices
 		float vertices[] = {
-			-0.25f, -0.5f, 0.0f,	1.0f, 1.0f, 0.5f,
-			0.15f, 0.0f, 0.0f,		0.5f, 1.0f, 0.75f,
-			0.0f, 0.5f, 0.0f,		0.6f, 1.0f, 0.2f,
-			0.5f, -0.4f, 0.0f,		1.0f, 0.2f, 1.0f
+			-0.5f, -0.5f, 0.0f,		1.0f, 1.0f, 0.5f,		0.0f, 0.0f,
+			-0.5f, 0.5f, 0.0f,		0.5f, 1.0f, 0.75f,		0.0f, 1.0f,
+			0.5f, -0.5f, 0.0f,		0.6f, 1.0f, 0.2f,		1.0f, 0.0f,
+			0.5f, 0.5f, 0.0f,		1.0f, 0.2f, 1.0f,		1.1f, 1.1f
 		};
 		unsigned int indicies[] = {
 			0, 1, 2,
@@ -84,20 +86,49 @@ public:
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
 
 		//POS
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
 		//CLR
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 		glEnableVertexAttribArray(1);
+		//TXTRS
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+		glEnableVertexAttribArray(2);
+
+		glGenTextures(1, &texture1);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		int h, w, nChannels;
+		unsigned char* data = stbi_load("MinecraftClone/assets/images/tex1.png", &w, &h, &nChannels, 0);
+
+		if (data)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+		}
+		else
+		{
+			std::cerr << "Failed to load texture!" << std::endl;
+		}
+
+		stbi_image_free(data);
+
 
 		//Shaders
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
 		AddShader(sh);
 		//Transformation
-		trans = glm::mat4(1.0f);
-		trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		sh.Activate();
-		sh.SetMat4("transform", trans);
+		//trans = glm::mat4(1.0f);
+		//trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		//sh.Activate();
+		sh.setInt("texture1", 0);
+		//sh.SetMat4("transform", trans);
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
 	}
@@ -119,11 +150,14 @@ public:
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+
 		for (int i = 0; i < shaderCollection.size(); i++)
 		{
-			trans = glm::rotate(trans, glm::radians((float)glfwGetTime() / 100.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			//trans = glm::rotate(trans, glm::radians((float)glfwGetTime() / 100.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 			shaderCollection[i].Activate();
-			shaderCollection[i].SetMat4("transform", trans);
+			//shaderCollection[i].SetMat4("transform", trans);
 		}
 
 		glBindVertexArray(VAO);
