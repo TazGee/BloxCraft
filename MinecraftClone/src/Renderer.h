@@ -105,7 +105,7 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		int h, w, nChannels;
-		unsigned char* data = stbi_load("MinecraftClone/assets/images/tex1.png", &w, &h, &nChannels, 0);
+		unsigned char* data = stbi_load("MinecraftClone/assets/images/img.jpg", &w, &h, &nChannels, 0);
 
 		if (data)
 		{
@@ -126,7 +126,7 @@ public:
 		//Transformation
 		//trans = glm::mat4(1.0f);
 		//trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		//sh.Activate();
+		sh.Activate();
 		sh.setInt("texture1", 0);
 		//sh.SetMat4("transform", trans);
 
@@ -156,7 +156,7 @@ public:
 		for (int i = 0; i < shaderCollection.size(); i++)
 		{
 			//trans = glm::rotate(trans, glm::radians((float)glfwGetTime() / 100.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-			shaderCollection[i].Activate();
+			//shaderCollection[i].Activate();
 			//shaderCollection[i].SetMat4("transform", trans);
 		}
 

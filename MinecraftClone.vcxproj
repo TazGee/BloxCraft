@@ -150,7 +150,7 @@
     <ClInclude Include="MinecraftClone\src\Shaders\Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="MinecraftClone\assets\images\tex1.png" />
+    <Image Include="MinecraftClone\assets\images\img.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
