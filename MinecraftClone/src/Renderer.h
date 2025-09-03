@@ -15,27 +15,23 @@
 #include "Shaders/Shader.h"
 #include <stb_image.h>
 
-// FRAME SIZE BUFFER --------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
 
 class Renderer {
-
-// GAME RUNNING BOOLEAN -----------------------
 public:
 	bool gameRunning;
 
-// ATTRIBUTES ---------------------------------
 private:
 	int width, height;
 	GLFWwindow* window;
 	unsigned int VAO, VBO, EBO;
-	//glm::mat4 trans;
+	glm::mat4 trans;
 	std::vector<Shader> shaderCollection;
 	unsigned int texture1;
-// CONSTRUCTOR --------------------------------
+
 public:
 	Renderer(int width, int height) : width(width), height(height), gameRunning(true)
 	{
@@ -70,7 +66,7 @@ public:
 			-0.5f, -0.5f, 0.0f,		1.0f, 1.0f, 0.5f,		0.0f, 0.0f,
 			-0.5f, 0.5f, 0.0f,		0.5f, 1.0f, 0.75f,		0.0f, 1.0f,
 			0.5f, -0.5f, 0.0f,		0.6f, 1.0f, 0.2f,		1.0f, 0.0f,
-			0.5f, 0.5f, 0.0f,		1.0f, 0.2f, 1.0f,		1.1f, 1.1f
+			0.5f, 0.5f, 0.0f,		1.0f, 0.2f, 1.0f,		1.0f, 1.0f
 		};
 		unsigned int indicies[] = {
 			0, 1, 2,
@@ -105,6 +101,7 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		int h, w, nChannels;
+		stbi_set_flip_vertically_on_load(true);
 		unsigned char* data = stbi_load("MinecraftClone/assets/images/img.jpg", &w, &h, &nChannels, 0);
 
 		if (data)
@@ -124,16 +121,15 @@ public:
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
 		AddShader(sh);
 		//Transformation
-		//trans = glm::mat4(1.0f);
-		//trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		trans = glm::mat4(1.0f);
+		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		sh.Activate();
 		sh.setInt("texture1", 0);
-		//sh.SetMat4("transform", trans);
+		sh.SetMat4("transform", trans);
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
 	}
 
-// PUBLIC METHODES ------------------------
 	void AddShader(Shader sh)
 	{
 		shaderCollection.push_back(sh);
@@ -145,7 +141,9 @@ public:
 
 	void RenderFrame()
 	{
-		processInput(); //Process the input
+		processInput();
+
+		if (glfwWindowShouldClose(window)) TerminateGame();
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -155,9 +153,9 @@ public:
 
 		for (int i = 0; i < shaderCollection.size(); i++)
 		{
-			//trans = glm::rotate(trans, glm::radians((float)glfwGetTime() / 100.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-			//shaderCollection[i].Activate();
-			//shaderCollection[i].SetMat4("transform", trans);
+			trans = glm::rotate(trans, glm::radians((float)glfwGetTime() / 50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			shaderCollection[i].Activate();
+			shaderCollection[i].SetMat4("transform", trans);
 		}
 
 		glBindVertexArray(VAO);
@@ -173,7 +171,7 @@ public:
 		glfwTerminate();
 	}
 
-// PRIVATE METHODES ------------------------
+
 private:
 
 	void InitApple()
@@ -187,7 +185,7 @@ private:
 	{
 		std::cout << "Setting the viewport...";
 		glViewport(0, 0, width, height);
-		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); //Calls when window is being resized
+		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 		std::cout << " DONE!" << std::endl;
 	}
 
@@ -206,7 +204,6 @@ private:
 	{
 		std::cout << "Initializing window...";
 		window = glfwCreateWindow(width, height, "Game", NULL, NULL);
-		//If GLFW windows doesn't init
 		if (window == NULL)
 		{
 			std::cerr << "Failed to initialize GLFW window!" << std::endl;
