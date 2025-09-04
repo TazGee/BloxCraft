@@ -1,38 +1,3 @@
 ﻿D:\Visual Studio\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1122,5): warning MSB8027: Two or more files with the name of glad.c will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Linking\src\glad.c, MinecraftClone\src\glad.c.
   main.cpp
-D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xmemory(2301,28): error C2676: binary '==': 'Shader' does not define this operator or a conversion to a type acceptable to the predefined operator
-  (compiling source file 'MinecraftClone/src/main.cpp')
-      D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xmemory(1046,30):
-      could be 'bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept'
-          D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xmemory(2301,19):
-          'bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept': could not deduce template argument for 'const std::allocator<_Ty> &' from 'Shader'
-      D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\iterator(486,17):
-      or       'bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)'
-          D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xmemory(2301,19):
-          'bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)': could not deduce template argument for 'const std::istreambuf_iterator<_Elem,_Traits> &' from 'Shader'
-      D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\iterator(304,17):
-      or       'bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept'
-          D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xmemory(2301,19):
-          'bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept': could not deduce template argument for 'const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &' from 'Shader'
-      D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xutility(4474,30):
-      or       'bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)'
-          D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xmemory(2301,19):
-          'bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)': could not deduce template argument for 'const std::move_iterator<_Iter> &' from 'Shader'
-      D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xutility(1926,30):
-      or       'bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)'
-          D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xmemory(2301,19):
-          'bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)': could not deduce template argument for 'const std::reverse_iterator<_BidIt> &' from 'Shader'
-      D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\utility(503,27):
-      or       'bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Uty1,_Uty2> &)'
-          D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xmemory(2301,19):
-          'bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Uty1,_Uty2> &)': could not deduce template argument for 'const std::pair<_Ty1,_Ty2> &' from 'Shader'
-      D:\Visual Studio\VC\Tools\MSVC\14.43.34808\include\xmemory(2301,28):
-      the template instantiation context (the oldest one first) is
-          D:\Projekti\BloxCraft\MinecraftClone\src\Renderer.h(144,31):
-          see reference to function template instantiation '_FwdIt std::remove<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,Shader>(_FwdIt,const _FwdIt,const _Ty &)' being compiled
-          with
-          [
-              _FwdIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Shader>>>,
-              _Ty=Shader
-          ]
-  
+  MinecraftClone.vcxproj -> D:\Projekti\BloxCraft\x64\Debug\MinecraftClone.exe

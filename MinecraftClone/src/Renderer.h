@@ -15,22 +15,26 @@
 #include "Shaders/Shader.h"
 #include <stb_image.h>
 
+// Kad se prozor resize-uje
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
 
+
+// Klasa renderer
 class Renderer {
 public:
-	bool gameRunning;
+	bool gameRunning;							// Odredjuje stanje igre
 
 private:
-	int width, height;
-	GLFWwindow* window;
-	unsigned int VAO, VBO, EBO;
-	glm::mat4 trans;
-	std::vector<Shader> shaderCollection;
-	unsigned int texture1;
+	int width, height;							// Sirina i visina renderer-a
+	GLFWwindow* window;							// Pokazivac na prozorcic igrice
+	unsigned int VAO, VBO, EBO;					// OpenGL buffer-i
+	std::vector<Shader> shaderCollection;		// Vektor koji sadrzi sve Shader-e koji se renderuju
+
+	glm::mat4 trans;							// Matrica za transformaciju
+	unsigned int texture1;						// Tekstura
 
 public:
 	Renderer(int width, int height) : width(width), height(height), gameRunning(true)
@@ -40,10 +44,10 @@ public:
 		glfwInit();
 		std::cout << " DONE!" << std::endl;
 
-		//Hitning that OpenGL is V3.3
+		//Hitn-ovanje da je OpenGL V3.3
 		HintGLFW();
 
-		//MAC Compatibility
+		//MAC Kompatibilnost
 #ifdef __APPLE__
 		InitApple();
 #endif
@@ -51,13 +55,13 @@ public:
 		//Init window
 		InitializeGameWindow();
 
-		//Sets the focus on the window
+		//Podesava fokus na window
 		glfwMakeContextCurrent(window);
 
-		//If GLAD doesn't load
+		//Provera da li se GLAD ucitao
 		CheckGlad();
 
-		//Viewport settings
+		//Podesavanje viewport-a
 		SetUpViewport();
 
 
@@ -84,9 +88,11 @@ public:
 		//POS
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
+
 		//CLR
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 		glEnableVertexAttribArray(1);
+
 		//TXTRS
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 		glEnableVertexAttribArray(2);
@@ -117,10 +123,10 @@ public:
 		stbi_image_free(data);
 
 
-		//Shaders
+		//Shader-i
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
 		AddShader(sh);
-		//Transformation
+		//Transformacije
 		trans = glm::mat4(1.0f);
 		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		sh.Activate();
@@ -130,27 +136,31 @@ public:
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
 	}
 
-	void AddShader(Shader sh)
+	void AddShader(Shader sh) // Dodavanje Shader-a u kolekciju
 	{
 		shaderCollection.push_back(sh);
 	}
-	void RemoveShader(Shader sh)
+	void RemoveShader(Shader sh) // Brisanje Shader-a iz kolekcije
 	{
 		//shaderCollection.erase(std::remove(shaderCollection.begin(), shaderCollection.end(), sh),shaderCollection.end());
 	}
 
-	void RenderFrame()
+	void RenderFrame() // Metoda koja sluzi za renderovanje frame-a
 	{
+		// Procesuiranje input-a
 		processInput();
 
-		if (glfwWindowShouldClose(window)) TerminateGame();
+		if (glfwWindowShouldClose(window)) TerminateGame(); // Zatvaranje prozorcica ukoliko je to zatrazeno
 
+		// Ciscenje buffer-a za boju
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		// Bind-ovanje teksture
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
 
+		// Rad nad Shader-ima
 		for (int i = 0; i < shaderCollection.size(); i++)
 		{
 			trans = glm::rotate(trans, glm::radians((float)glfwGetTime() / 50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -158,14 +168,16 @@ public:
 			shaderCollection[i].SetMat4("transform", trans);
 		}
 
+		// Crtanje elemenata
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+		// Zamena buffer-a
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 
-	void TerminateGame()
+	void TerminateGame() // Metoda za gasenje igre
 	{
 		gameRunning = false;
 		glfwTerminate();
