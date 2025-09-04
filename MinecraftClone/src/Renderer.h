@@ -15,6 +15,9 @@
 #include "Shaders/Shader.h"
 #include <stb_image.h>
 
+#include "IO/Keyboard.h"
+#include "IO/Mouse.h"
+
 // Kad se prozor resize-uje
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
