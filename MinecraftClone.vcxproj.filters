@@ -33,6 +33,12 @@
     <ClCompile Include="MinecraftClone\src\Shaders\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MinecraftClone\src\IO\Keyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinecraftClone\src\IO\Mouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -48,6 +54,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MinecraftClone\src\Shaders\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MinecraftClone\src\IO\Keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MinecraftClone\src\IO\Mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

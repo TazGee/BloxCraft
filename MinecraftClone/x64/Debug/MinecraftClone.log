@@ -1,3 +1,8 @@
 ﻿D:\Visual Studio\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1122,5): warning MSB8027: Two or more files with the name of glad.c will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Linking\src\glad.c, MinecraftClone\src\glad.c.
+  Keyboard.cpp
+  Mouse.cpp
   main.cpp
+  Shader.cpp
+  Generating Code...
+MinecraftClone\x64\Debug\glad.obj : warning LNK4042: object specified more than once; extras ignored
   MinecraftClone.vcxproj -> D:\Projekti\BloxCraft\x64\Debug\MinecraftClone.exe

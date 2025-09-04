@@ -22,6 +22,7 @@ public:
 	std::string LoadShaderSource(const char* filepath);
 	GLuint CompileShader(const char* filepath, GLenum type);
 
+
 	void SetMat4(const std::string& name, glm::mat4 val);
 	void setBool(const std::string& name, bool value);
 	void setInt(const std::string& name, int value);
