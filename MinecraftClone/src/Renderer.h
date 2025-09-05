@@ -18,11 +18,16 @@
 #include "IO/Keyboard.h"
 #include "IO/Mouse.h"
 
+int width, height;
+float x, y, z;
+
 // Kad se prozor resize-uje
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_callback(GLFWwindow* window, int w, int h)
 {
-	glViewport(0, 0, width, height);
-}
+	glViewport(0, 0, w, h);
+	width = w;
+	height = h;
+}								// Sirina i visina renderer-a
 
 
 // Klasa renderer
@@ -31,7 +36,6 @@ public:
 	bool gameRunning;							// Odredjuje stanje igre
 
 private:
-	int width, height;							// Sirina i visina renderer-a
 	GLFWwindow* window;							// Pokazivac na prozorcic igrice
 	unsigned int VAO, VBO, EBO;					// OpenGL buffer-i
 	std::vector<Shader> shaderCollection;		// Vektor koji sadrzi sve Shader-e koji se renderuju
@@ -39,9 +43,15 @@ private:
 	glm::mat4 trans;							// Matrica za transformaciju
 	unsigned int texture1;						// Tekstura
 
+
+	
+
 public:
-	Renderer(int width, int height) : width(width), height(height), gameRunning(true)
+	Renderer(int w, int h) : gameRunning(true)
 	{
+		width = w;
+		height = h;
+
 		//Init GLFW
 		std::cout << "Initializing GLFW...";
 		glfwInit();
@@ -67,38 +77,78 @@ public:
 		//Podesavanje viewport-a
 		SetUpViewport();
 
+		glEnable(GL_DEPTH_TEST);
 
 		//Vertices
 		float vertices[] = {
-			-0.5f, -0.5f, 0.0f,		1.0f, 1.0f, 0.5f,		0.0f, 0.0f,
-			-0.5f, 0.5f, 0.0f,		0.5f, 1.0f, 0.75f,		0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f,		0.6f, 1.0f, 0.2f,		1.0f, 0.0f,
-			0.5f, 0.5f, 0.0f,		1.0f, 0.2f, 1.0f,		1.0f, 1.0f
-		};
-		unsigned int indicies[] = {
-			0, 1, 2,
-			3, 1, 2
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 		};
 
 		//VAO, VBO
 		VaoVboEboSetup();
 
+		//Input callbacks
+		glfwSetKeyCallback(window, Keyboard::keyCallback);
+		glfwSetCursorPosCallback(window, Mouse::cursorPosCallback);
+		glfwSetMouseButtonCallback(window, Mouse::mouseButtonCallback);
+		glfwSetScrollCallback(window, Mouse::mouseWheelCallback);
+
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
 
 		//POS
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
 
 		//CLR
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-		glEnableVertexAttribArray(1);
+		//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+		//glEnableVertexAttribArray(1);
 
 		//TXTRS
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
 
 		glGenTextures(1, &texture1);
 		glBindTexture(GL_TEXTURE_2D, texture1);
@@ -109,13 +159,13 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		int h, w, nChannels;
+		int he, wi, nChannels;
 		stbi_set_flip_vertically_on_load(true);
-		unsigned char* data = stbi_load("MinecraftClone/assets/images/img.jpg", &w, &h, &nChannels, 0);
+		unsigned char* data = stbi_load("MinecraftClone/assets/images/tx1.jpg", &wi, &he, &nChannels, 0);
 
 		if (data)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, wi, he, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 		else
@@ -129,12 +179,14 @@ public:
 		//Shader-i
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
 		AddShader(sh);
+
 		//Transformacije
-		trans = glm::mat4(1.0f);
-		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		x = 0.0f;
+		y = 0.0f;
+		z = 3.0f;
+		
 		sh.Activate();
 		sh.setInt("texture1", 0);
-		sh.SetMat4("transform", trans);
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
 	}
@@ -157,23 +209,36 @@ public:
 
 		// Ciscenje buffer-a za boju
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Bind-ovanje teksture
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
 
+		// Crtanje elemenata
+		glBindVertexArray(VAO);
+
+		// Transformacije
+		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 projection = glm::mat4(1.0f);
+
+		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
+		view = glm::translate(view, glm::vec3(-x, -y, -z));
+		projection = glm::perspective(glm::radians(70.0f), (float)width / (float)height, 0.1f, 100.0f);
+
 		// Rad nad Shader-ima
 		for (int i = 0; i < shaderCollection.size(); i++)
 		{
-			trans = glm::rotate(trans, glm::radians((float)glfwGetTime() / 50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 			shaderCollection[i].Activate();
 			shaderCollection[i].SetMat4("transform", trans);
+			shaderCollection[i].SetMat4("model", model);
+			shaderCollection[i].SetMat4("view", view);
+			shaderCollection[i].SetMat4("projection", projection);
 		}
 
-		// Crtanje elemenata
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Zamena buffer-a
 		glfwSwapBuffers(window);
@@ -182,6 +247,9 @@ public:
 
 	void TerminateGame() // Metoda za gasenje igre
 	{
+		glDeleteVertexArrays(1, &VAO);
+		glDeleteBuffers(1, &VBO);
+		//glDeleteVertexArrays(1, &EBO);
 		gameRunning = false;
 		glfwTerminate();
 	}
@@ -242,7 +310,7 @@ private:
 		std::cout << "Setting up VAO and VBO...";
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
+		//glGenBuffers(1, &EBO);
 
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -251,8 +319,17 @@ private:
 
 	void processInput()
 	{
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		if (Keyboard::key(GLFW_KEY_ESCAPE))
 			gameRunning = false;
+
+		if (Keyboard::key(GLFW_KEY_W))
+			z -= 0.02f;
+		if (Keyboard::key(GLFW_KEY_S))
+			z += 0.02f;
+		if (Keyboard::key(GLFW_KEY_A))
+			x -= 0.02f;
+		if (Keyboard::key(GLFW_KEY_D))
+			x += 0.02f;
 	}
 };
 
