@@ -138,6 +138,7 @@
     <ClCompile Include="MinecraftClone\src\IO\Keyboard.cpp" />
     <ClCompile Include="MinecraftClone\src\IO\Mouse.cpp" />
     <ClCompile Include="MinecraftClone\src\main.cpp" />
+    <ClCompile Include="MinecraftClone\src\Player\Camera.cpp" />
     <ClCompile Include="MinecraftClone\src\Shaders\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="MinecraftClone\src\IO\Keyboard.h" />
     <ClInclude Include="MinecraftClone\src\IO\Mouse.h" />
+    <ClInclude Include="MinecraftClone\src\Player\Camera.h" />
     <ClInclude Include="MinecraftClone\src\Renderer.h" />
     <ClInclude Include="Linking\include\stb_image.h" />
     <ClInclude Include="MinecraftClone\src\Shaders\Shader.h" />

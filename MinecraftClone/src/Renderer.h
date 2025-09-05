@@ -18,6 +18,8 @@
 #include "IO/Keyboard.h"
 #include "IO/Mouse.h"
 
+#include "Player/Camera.h"
+
 int width, height;
 float x, y, z;
 
@@ -27,8 +29,11 @@ void framebuffer_size_callback(GLFWwindow* window, int w, int h)
 	glViewport(0, 0, w, h);
 	width = w;
 	height = h;
-}								// Sirina i visina renderer-a
+}
 
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
 
 // Klasa renderer
 class Renderer {
@@ -42,10 +47,7 @@ private:
 
 	glm::mat4 trans;							// Matrica za transformaciju
 	unsigned int texture1;						// Tekstura
-
-
 	
-
 public:
 	Renderer(int w, int h) : gameRunning(true)
 	{
@@ -133,6 +135,8 @@ public:
 		glfwSetMouseButtonCallback(window, Mouse::mouseButtonCallback);
 		glfwSetScrollCallback(window, Mouse::mouseWheelCallback);
 
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -202,6 +206,11 @@ public:
 
 	void RenderFrame() // Metoda koja sluzi za renderovanje frame-a
 	{
+		// Racunanje deltaTime
+		double currentTime = glfwGetTime();
+		deltaTime = currentTime - lastFrame;
+		lastFrame = currentTime;
+
 		// Procesuiranje input-a
 		processInput();
 
@@ -223,9 +232,9 @@ public:
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projection = glm::mat4(1.0f);
 
-		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
-		view = glm::translate(view, glm::vec3(-x, -y, -z));
-		projection = glm::perspective(glm::radians(70.0f), (float)width / (float)height, 0.1f, 100.0f);
+		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
+		view = camera.getViewMatrix();
+		projection = glm::perspective(glm::radians(camera.zoom), (float)width / (float)height, 0.1f, 100.0f);
 
 		// Rad nad Shader-ima
 		for (int i = 0; i < shaderCollection.size(); i++)
@@ -323,13 +332,29 @@ private:
 			gameRunning = false;
 
 		if (Keyboard::key(GLFW_KEY_W))
-			z -= 0.02f;
+			camera.updateCameraPos(CameraDirection::FORWARD, deltaTime);
 		if (Keyboard::key(GLFW_KEY_S))
-			z += 0.02f;
+			camera.updateCameraPos(CameraDirection::BACKWARD, deltaTime);
 		if (Keyboard::key(GLFW_KEY_A))
-			x -= 0.02f;
+			camera.updateCameraPos(CameraDirection::LEFT, deltaTime);
 		if (Keyboard::key(GLFW_KEY_D))
-			x += 0.02f;
+			camera.updateCameraPos(CameraDirection::RIGHT, deltaTime);
+		if (Keyboard::key(GLFW_KEY_SPACE))
+			camera.updateCameraPos(CameraDirection::UP, deltaTime);
+		if (Keyboard::key(GLFW_KEY_LEFT_SHIFT))
+			camera.updateCameraPos(CameraDirection::DOWN, deltaTime);
+
+		double dx = Mouse::getDX(), dy = Mouse::getDY();
+		if (dx != 0 || dy != 0)
+		{
+			camera.updateCameraDirection(dx, dy);
+		}
+
+		double scrollDy = Mouse::getScrollDY();
+		if (scrollDy != 0)
+		{
+			camera.updateCameraZoom(scrollDy);
+		}
 	}
 };
 
