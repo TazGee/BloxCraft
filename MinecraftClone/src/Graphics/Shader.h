@@ -15,13 +15,14 @@ class Shader {
 public:
 	unsigned int id;
 	Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
-	Shader() : id(0) {}
+	Shader();
 	void Activate();
 
 	//Utility
 	std::string LoadShaderSource(const char* filepath);
 	GLuint CompileShader(const char* filepath, GLenum type);
 
+	void generate(const char* vertexShaderPath, const char* fragmentShaderPath);
 
 	void SetMat4(const std::string& name, glm::mat4 val);
 	void setBool(const std::string& name, bool value);

@@ -3,4 +3,6 @@
 D:\Projekti\BloxCraft\MinecraftClone\src\Player\Camera.cpp(18,12): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
 D:\Projekti\BloxCraft\MinecraftClone\src\Player\Camera.cpp(19,14): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
 D:\Projekti\BloxCraft\MinecraftClone\src\Player\Camera.cpp(60,10): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
   MinecraftClone.vcxproj -> D:\Projekti\BloxCraft\x64\Debug\MinecraftClone.exe

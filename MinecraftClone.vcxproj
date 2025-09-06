@@ -74,6 +74,10 @@
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\Linking\include</IncludePath>
     <LibraryPath>$(SolutionDir)\Linking\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\Linking\include</IncludePath>
+    <LibraryPath>$(SolutionDir)\Linking\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -135,11 +139,12 @@
     <ClCompile Include="Linking\src\glad.c" />
     <ClCompile Include="MinecraftClone\lib\stb.cpp" />
     <ClCompile Include="MinecraftClone\src\glad.c" />
+    <ClCompile Include="MinecraftClone\src\Graphics\Texture.cpp" />
     <ClCompile Include="MinecraftClone\src\IO\Keyboard.cpp" />
     <ClCompile Include="MinecraftClone\src\IO\Mouse.cpp" />
     <ClCompile Include="MinecraftClone\src\main.cpp" />
     <ClCompile Include="MinecraftClone\src\Player\Camera.cpp" />
-    <ClCompile Include="MinecraftClone\src\Shaders\Shader.cpp" />
+    <ClCompile Include="MinecraftClone\src\Graphics\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MinecraftClone\assets\fragment_core.glsl" />
@@ -148,12 +153,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MinecraftClone\src\Graphics\Texture.h" />
     <ClInclude Include="MinecraftClone\src\IO\Keyboard.h" />
     <ClInclude Include="MinecraftClone\src\IO\Mouse.h" />
     <ClInclude Include="MinecraftClone\src\Player\Camera.h" />
     <ClInclude Include="MinecraftClone\src\Renderer.h" />
     <ClInclude Include="Linking\include\stb_image.h" />
-    <ClInclude Include="MinecraftClone\src\Shaders\Shader.h" />
+    <ClInclude Include="MinecraftClone\src\Graphics\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="MinecraftClone\assets\images\img.jpg" />

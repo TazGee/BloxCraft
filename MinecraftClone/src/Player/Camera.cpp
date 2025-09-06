@@ -6,8 +6,8 @@ Camera::Camera(glm::vec3 position)
 	yaw(-90.0f),
 	pitch(0.0f),
 	speed(2.5f),
-	zoom(45.0f),
-	sensitivity(0.5f),
+	zoom(75.0f),
+	sensitivity(0.2f),
 	cameraFront(glm::vec3(0.0f, 0.0f, -1.0f))
 {
 	updateCameraVectors();

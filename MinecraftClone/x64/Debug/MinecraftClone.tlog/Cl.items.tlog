@@ -1,8 +1,9 @@
 D:\Projekti\BloxCraft\Linking\src\glad.c;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\glad.obj
 D:\Projekti\BloxCraft\MinecraftClone\lib\stb.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\stb.obj
 D:\Projekti\BloxCraft\MinecraftClone\src\glad.c;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\glad.obj
+D:\Projekti\BloxCraft\MinecraftClone\src\Graphics\Texture.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Texture.obj
 D:\Projekti\BloxCraft\MinecraftClone\src\IO\Keyboard.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Keyboard.obj
 D:\Projekti\BloxCraft\MinecraftClone\src\IO\Mouse.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Mouse.obj
 D:\Projekti\BloxCraft\MinecraftClone\src\main.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\main.obj
 D:\Projekti\BloxCraft\MinecraftClone\src\Player\Camera.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Camera.obj
-D:\Projekti\BloxCraft\MinecraftClone\src\Shaders\Shader.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Shader.obj
+D:\Projekti\BloxCraft\MinecraftClone\src\Graphics\Shader.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Shader.obj

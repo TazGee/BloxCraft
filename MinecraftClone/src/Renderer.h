@@ -12,8 +12,8 @@
 #include <string>
 #include <vector>
 
-#include "Shaders/Shader.h"
-#include <stb_image.h>
+#include "Graphics/Shader.h"
+#include "Graphics/Texture.h"
 
 #include "IO/Keyboard.h"
 #include "IO/Mouse.h"
@@ -21,7 +21,6 @@
 #include "Player/Camera.h"
 
 int width, height;
-float x, y, z;
 
 // Kad se prozor resize-uje
 void framebuffer_size_callback(GLFWwindow* window, int w, int h)
@@ -46,7 +45,7 @@ private:
 	std::vector<Shader> shaderCollection;		// Vektor koji sadrzi sve Shader-e koji se renderuju
 
 	glm::mat4 trans;							// Matrica za transformaciju
-	unsigned int texture1;						// Tekstura
+	//Texture texture2;							// Tekstura
 	
 public:
 	Renderer(int w, int h) : gameRunning(true)
@@ -72,6 +71,7 @@ public:
 
 		//Podesava fokus na window
 		glfwMakeContextCurrent(window);
+		glfwSwapInterval(0);
 
 		//Provera da li se GLAD ucitao
 		CheckGlad();
@@ -129,70 +129,84 @@ public:
 		//VAO, VBO
 		VaoVboEboSetup();
 
-		//Input callbacks
+		//Input callbacks i sakrivanje kursora
 		glfwSetKeyCallback(window, Keyboard::keyCallback);
 		glfwSetCursorPosCallback(window, Mouse::cursorPosCallback);
 		glfwSetMouseButtonCallback(window, Mouse::mouseButtonCallback);
 		glfwSetScrollCallback(window, Mouse::mouseWheelCallback);
-
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
 
 		//POS
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
 
-		//CLR
-		//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-		//glEnableVertexAttribArray(1);
-
-		//TXTRS
+		//TXTR
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 		glEnableVertexAttribArray(1);
 
-		glGenTextures(1, &texture1);
-		glBindTexture(GL_TEXTURE_2D, texture1);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-		int he, wi, nChannels;
-		stbi_set_flip_vertically_on_load(true);
-		unsigned char* data = stbi_load("MinecraftClone/assets/images/tx1.jpg", &wi, &he, &nChannels, 0);
-
-		if (data)
-		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, wi, he, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-			glGenerateMipmap(GL_TEXTURE_2D);
-		}
-		else
-		{
-			std::cerr << "Failed to load texture!" << std::endl;
-		}
-
-		stbi_image_free(data);
-
+		//Texture
+		Texture texture1("MinecraftClone/assets/images/img.jpg", "texture1");
+		texture1.load();
 
 		//Shader-i
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
 		AddShader(sh);
 
-		//Transformacije
-		x = 0.0f;
-		y = 0.0f;
-		z = 3.0f;
-		
 		sh.Activate();
-		sh.setInt("texture1", 0);
+		sh.setInt("texture1", texture1.id);
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
+
+		while(gameRunning) // Main while petlja koja renderuje frejmove
+		{
+			// Racunanje deltaTime
+			float currentTime = (float)glfwGetTime();
+			deltaTime = currentTime - lastFrame;
+			lastFrame = currentTime;
+
+			// Procesuiranje input-a
+			processInput();
+
+			if (glfwWindowShouldClose(window)) TerminateGame(); // Zatvaranje prozorcica ukoliko je to zatrazeno
+
+			// Ciscenje buffer-a za boju
+			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			// Bind-ovanje teksture
+			glActiveTexture(GL_TEXTURE0);
+			texture1.BindTexture();
+
+			// Crtanje elemenata
+			glBindVertexArray(VAO);
+
+			// Transformacije
+			glm::mat4 model = glm::mat4(1.0f);
+			glm::mat4 view = glm::mat4(1.0f);
+			glm::mat4 projection = glm::mat4(1.0f);
+
+			//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
+			view = camera.getViewMatrix();
+			projection = glm::perspective(glm::radians(camera.zoom), (float)width / (float)height, 0.1f, 100.0f);
+
+			// Rad nad Shader-ima
+			for (int i = 0; i < shaderCollection.size(); i++)
+			{
+				shaderCollection[i].Activate();
+				shaderCollection[i].SetMat4("transform", trans);
+				shaderCollection[i].SetMat4("model", model);
+				shaderCollection[i].SetMat4("view", view);
+				shaderCollection[i].SetMat4("projection", projection);
+			}
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+
+			// Zamena buffer-a
+			glfwSwapBuffers(window);
+			glfwPollEvents();
+		}
 	}
 
 	void AddShader(Shader sh) // Dodavanje Shader-a u kolekciju
@@ -202,56 +216,6 @@ public:
 	void RemoveShader(Shader sh) // Brisanje Shader-a iz kolekcije
 	{
 		//shaderCollection.erase(std::remove(shaderCollection.begin(), shaderCollection.end(), sh),shaderCollection.end());
-	}
-
-	void RenderFrame() // Metoda koja sluzi za renderovanje frame-a
-	{
-		// Racunanje deltaTime
-		double currentTime = glfwGetTime();
-		deltaTime = currentTime - lastFrame;
-		lastFrame = currentTime;
-
-		// Procesuiranje input-a
-		processInput();
-
-		if (glfwWindowShouldClose(window)) TerminateGame(); // Zatvaranje prozorcica ukoliko je to zatrazeno
-
-		// Ciscenje buffer-a za boju
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		// Bind-ovanje teksture
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture1);
-
-		// Crtanje elemenata
-		glBindVertexArray(VAO);
-
-		// Transformacije
-		glm::mat4 model = glm::mat4(1.0f);
-		glm::mat4 view = glm::mat4(1.0f);
-		glm::mat4 projection = glm::mat4(1.0f);
-
-		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
-		view = camera.getViewMatrix();
-		projection = glm::perspective(glm::radians(camera.zoom), (float)width / (float)height, 0.1f, 100.0f);
-
-		// Rad nad Shader-ima
-		for (int i = 0; i < shaderCollection.size(); i++)
-		{
-			shaderCollection[i].Activate();
-			shaderCollection[i].SetMat4("transform", trans);
-			shaderCollection[i].SetMat4("model", model);
-			shaderCollection[i].SetMat4("view", view);
-			shaderCollection[i].SetMat4("projection", projection);
-		}
-
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		// Zamena buffer-a
-		glfwSwapBuffers(window);
-		glfwPollEvents();
 	}
 
 	void TerminateGame() // Metoda za gasenje igre
