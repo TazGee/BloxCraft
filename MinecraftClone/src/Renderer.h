@@ -43,7 +43,6 @@ public:
 
 private:
 	GLFWwindow* window;							// Pokazivac na prozorcic igrice
-	unsigned int VAO, VBO, EBO;					// OpenGL buffer-i
 	
 public:
 	Renderer(int w, int h) : gameRunning(true)
@@ -123,7 +122,6 @@ public:
 			glm::mat4 view = glm::mat4(1.0f);
 			glm::mat4 projection = glm::mat4(1.0f);
 
-			//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f));
 			view = camera.getViewMatrix();
 			projection = glm::perspective(glm::radians(camera.zoom), (float)width / (float)height, 0.1f, 100.0f);
 
@@ -198,18 +196,6 @@ private:
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		std::cout << " DONE!" << std::endl;
-	}
-
-	void VaoVboEboSetup()
-	{
-		std::cout << "Setting up VAO and VBO...";
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		//glGenBuffers(1, &EBO);
-
-		glBindVertexArray(VAO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		std::cout << " DONE!" << std::endl;
 	}
 
