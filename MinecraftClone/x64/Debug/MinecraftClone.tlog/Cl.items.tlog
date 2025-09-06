@@ -1,6 +1,8 @@
 D:\Projekti\BloxCraft\Linking\src\glad.c;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\glad.obj
 D:\Projekti\BloxCraft\MinecraftClone\lib\stb.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\stb.obj
 D:\Projekti\BloxCraft\MinecraftClone\src\glad.c;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\glad.obj
+D:\Projekti\BloxCraft\MinecraftClone\src\Graphics\Mesh.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Mesh.obj
+D:\Projekti\BloxCraft\MinecraftClone\src\Graphics\Model.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Model.obj
 D:\Projekti\BloxCraft\MinecraftClone\src\Graphics\Texture.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Texture.obj
 D:\Projekti\BloxCraft\MinecraftClone\src\IO\Keyboard.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Keyboard.obj
 D:\Projekti\BloxCraft\MinecraftClone\src\IO\Mouse.cpp;D:\Projekti\BloxCraft\MinecraftClone\x64\Debug\Mouse.obj

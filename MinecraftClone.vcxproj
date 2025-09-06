@@ -112,6 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,6 +140,8 @@
     <ClCompile Include="Linking\src\glad.c" />
     <ClCompile Include="MinecraftClone\lib\stb.cpp" />
     <ClCompile Include="MinecraftClone\src\glad.c" />
+    <ClCompile Include="MinecraftClone\src\Graphics\Mesh.cpp" />
+    <ClCompile Include="MinecraftClone\src\Graphics\Model.cpp" />
     <ClCompile Include="MinecraftClone\src\Graphics\Texture.cpp" />
     <ClCompile Include="MinecraftClone\src\IO\Keyboard.cpp" />
     <ClCompile Include="MinecraftClone\src\IO\Mouse.cpp" />
@@ -153,6 +156,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MinecraftClone\assets\Models\Cube.hpp" />
+    <ClInclude Include="MinecraftClone\src\Graphics\Mesh.h" />
+    <ClInclude Include="MinecraftClone\src\Graphics\Model.h" />
     <ClInclude Include="MinecraftClone\src\Graphics\Texture.h" />
     <ClInclude Include="MinecraftClone\src\IO\Keyboard.h" />
     <ClInclude Include="MinecraftClone\src\IO\Mouse.h" />

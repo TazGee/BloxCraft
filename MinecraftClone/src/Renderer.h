@@ -15,6 +15,8 @@
 #include "Graphics/Shader.h"
 #include "Graphics/Texture.h"
 
+#include "MinecraftClone/assets/Models/Cube.hpp"
+
 #include "IO/Keyboard.h"
 #include "IO/Mouse.h"
 
@@ -42,10 +44,6 @@ public:
 private:
 	GLFWwindow* window;							// Pokazivac na prozorcic igrice
 	unsigned int VAO, VBO, EBO;					// OpenGL buffer-i
-	std::vector<Shader> shaderCollection;		// Vektor koji sadrzi sve Shader-e koji se renderuju
-
-	glm::mat4 trans;							// Matrica za transformaciju
-	//Texture texture2;							// Tekstura
 	
 public:
 	Renderer(int w, int h) : gameRunning(true)
@@ -81,54 +79,6 @@ public:
 
 		glEnable(GL_DEPTH_TEST);
 
-		//Vertices
-		float vertices[] = {
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-		};
-
-		//VAO, VBO
-		VaoVboEboSetup();
-
 		//Input callbacks i sakrivanje kursora
 		glfwSetKeyCallback(window, Keyboard::keyCallback);
 		glfwSetCursorPosCallback(window, Mouse::cursorPosCallback);
@@ -136,26 +86,11 @@ public:
 		glfwSetScrollCallback(window, Mouse::mouseWheelCallback);
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		//POS
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
-
-		//TXTR
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-		glEnableVertexAttribArray(1);
-
-		//Texture
-		Texture texture1("MinecraftClone/assets/images/img.jpg", "texture1");
-		texture1.load();
-
 		//Shader-i
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
-		AddShader(sh);
 
-		sh.Activate();
-		sh.setInt("texture1", texture1.id);
+		Cube cube(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		cube.Initialize();
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
 
@@ -175,15 +110,7 @@ public:
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			// Bind-ovanje teksture
-			glActiveTexture(GL_TEXTURE0);
-			texture1.BindTexture();
-
-			// Crtanje elemenata
-			glBindVertexArray(VAO);
-
 			// Transformacije
-			glm::mat4 model = glm::mat4(1.0f);
 			glm::mat4 view = glm::mat4(1.0f);
 			glm::mat4 projection = glm::mat4(1.0f);
 
@@ -191,17 +118,12 @@ public:
 			view = camera.getViewMatrix();
 			projection = glm::perspective(glm::radians(camera.zoom), (float)width / (float)height, 0.1f, 100.0f);
 
-			// Rad nad Shader-ima
-			for (int i = 0; i < shaderCollection.size(); i++)
-			{
-				shaderCollection[i].Activate();
-				shaderCollection[i].SetMat4("transform", trans);
-				shaderCollection[i].SetMat4("model", model);
-				shaderCollection[i].SetMat4("view", view);
-				shaderCollection[i].SetMat4("projection", projection);
-			}
+			// Rad nad Shader-om
+			sh.Activate();
+			sh.SetMat4("view", view);
+			sh.SetMat4("projection", projection);
 
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+			cube.Render(sh);
 
 			// Zamena buffer-a
 			glfwSwapBuffers(window);
@@ -209,20 +131,8 @@ public:
 		}
 	}
 
-	void AddShader(Shader sh) // Dodavanje Shader-a u kolekciju
-	{
-		shaderCollection.push_back(sh);
-	}
-	void RemoveShader(Shader sh) // Brisanje Shader-a iz kolekcije
-	{
-		//shaderCollection.erase(std::remove(shaderCollection.begin(), shaderCollection.end(), sh),shaderCollection.end());
-	}
-
 	void TerminateGame() // Metoda za gasenje igre
 	{
-		glDeleteVertexArrays(1, &VAO);
-		glDeleteBuffers(1, &VBO);
-		//glDeleteVertexArrays(1, &EBO);
 		gameRunning = false;
 		glfwTerminate();
 	}
