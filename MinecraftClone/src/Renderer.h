@@ -89,8 +89,17 @@ public:
 		//Shader-i
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
 
-		Cube cube(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));
-		cube.Initialize();
+		Cube cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		cube1.Initialize();
+		Cube cube2(glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		cube2.Initialize();
+		Cube cube3(glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		cube3.Initialize();
+		Cube cube4(glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		cube4.Initialize();
+		Cube cube5(glm::vec3(-2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		cube5.Initialize();
+
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
 
@@ -123,7 +132,11 @@ public:
 			sh.SetMat4("view", view);
 			sh.SetMat4("projection", projection);
 
-			cube.Render(sh);
+			cube1.Render(sh);
+			cube2.Render(sh);
+			cube3.Render(sh);
+			cube4.Render(sh);
+			cube5.Render(sh);
 
 			// Zamena buffer-a
 			glfwSwapBuffers(window);
