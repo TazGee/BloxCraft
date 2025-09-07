@@ -79,7 +79,7 @@ public:
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, pos);
 		model = glm::scale(model, size);
-		model = glm::rotate(model, 0.0f, glm::vec3(0.5f));
+		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(55.0f), glm::vec3(0.5f));
 		shader.SetMat4("model", model);
 
 		Model::Render(shader);

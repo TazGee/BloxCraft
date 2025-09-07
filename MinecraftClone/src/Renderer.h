@@ -33,7 +33,7 @@ void framebuffer_size_callback(GLFWwindow* window, int w, int h)
 	height = h;
 }
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 2.0f, 4.0f));
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
@@ -89,7 +89,7 @@ public:
 		//Shader-i
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
 
-		Cube cube(glm::vec3(0.0f, 0.75f, -1.0f), glm::vec3(0.5f));
+		Cube cube(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f));
 		cube.Initialize();
 
 		Grass cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));
@@ -102,6 +102,28 @@ public:
 		cube4.Initialize();
 		Grass cube5(glm::vec3(-2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube5.Initialize();
+
+		Grass cube11(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		cube11.Initialize();
+		Grass cube12(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		cube12.Initialize();
+		Grass cube13(glm::vec3(2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		cube13.Initialize();
+		Grass cube14(glm::vec3(-1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		cube14.Initialize();
+		Grass cube15(glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		cube15.Initialize();
+
+		Grass cube21(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		cube21.Initialize();
+		Grass cube22(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		cube22.Initialize();
+		Grass cube23(glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		cube23.Initialize();
+		Grass cube24(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		cube24.Initialize();
+		Grass cube25(glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		cube25.Initialize();
 
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
@@ -134,13 +156,26 @@ public:
 			sh.SetMat4("view", view);
 			sh.SetMat4("projection", projection);
 
-			cube.Render(sh);
 
 			cube1.Render(sh);
 			cube2.Render(sh);
 			cube3.Render(sh);
 			cube4.Render(sh);
 			cube5.Render(sh);
+
+			cube11.Render(sh);
+			cube12.Render(sh);
+			cube13.Render(sh);
+			cube14.Render(sh);
+			cube15.Render(sh);
+
+			cube21.Render(sh);
+			cube22.Render(sh);
+			cube23.Render(sh);
+			cube24.Render(sh);
+			cube25.Render(sh);
+
+			cube.Render(sh);
 
 			// Zamena buffer-a
 			glfwSwapBuffers(window);
