@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MinecraftClone\assets\Models\Cube.hpp" />
+    <ClInclude Include="MinecraftClone\assets\Models\Grass.hpp" />
     <ClInclude Include="MinecraftClone\src\Graphics\Mesh.h" />
     <ClInclude Include="MinecraftClone\src\Graphics\Model.h" />
     <ClInclude Include="MinecraftClone\src\Graphics\Texture.h" />

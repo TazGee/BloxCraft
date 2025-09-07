@@ -68,10 +68,10 @@ public:
 			indices[i] = i;
 		}
 
-		Texture tex0("MinecraftClone/assets/images/tx1.jpg", "texture0");
-		tex0.load(true);
+		Texture tex1("MinecraftClone/assets/images/tx1.jpg", "texture1");
+		tex1.load(true);
 
-		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices), indices, { tex0 }));
+		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices), indices, { tex1 }));
 	}
 
 	void Render(Shader shader)
