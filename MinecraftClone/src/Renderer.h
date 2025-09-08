@@ -17,6 +17,7 @@
 
 #include "MinecraftClone/assets/Models/Cube.hpp"
 #include "MinecraftClone/assets/Models/Grass.hpp"
+#include "MinecraftClone/assets/Models/Lamp.hpp"
 
 #include "IO/Keyboard.h"
 #include "IO/Mouse.h"
@@ -88,8 +89,9 @@ public:
 
 		//Shader-i
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
+		
 
-		Cube cube(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f));
+		Cube cube(Material::emerald, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f));
 		cube.Initialize();
 
 		Grass cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));
@@ -125,6 +127,9 @@ public:
 		Grass cube25(glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube25.Initialize();
 
+		Lamp lamp(glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(-1.0f, -0.5f, -0.5f), glm::vec3(0.25f));
+		lamp.Initialize();
+
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
 
@@ -153,6 +158,13 @@ public:
 
 			// Rad nad Shader-om
 			sh.Activate();
+			sh.set3Float("light.position", lamp.pos);
+			sh.set3Float("viewPos", camera.cameraPos);
+
+			sh.set3Float("light.ambient", lamp.ambient);
+			sh.set3Float("light.diffuse", lamp.diffuse);
+			sh.set3Float("light.specular", lamp.specular);
+
 			sh.SetMat4("view", view);
 			sh.SetMat4("projection", projection);
 
@@ -176,6 +188,7 @@ public:
 			cube25.Render(sh);
 
 			cube.Render(sh);
+			lamp.Render(sh);
 
 			// Zamena buffer-a
 			glfwSwapBuffers(window);

@@ -2,13 +2,17 @@
   glad.c
   glad.c
   stb.cpp
+  Mesh.cpp
+D:\Projekti\BloxCraft\MinecraftClone\src\Graphics\Mesh.cpp(44,43): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+  Model.cpp
+  Texture.cpp
   Keyboard.cpp
   Mouse.cpp
   main.cpp
-D:\Projekti\BloxCraft\MinecraftClone\src\Renderer.h(205,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Projekti\BloxCraft\MinecraftClone\assets\Models\Cube.hpp(66,30): warning C4018: '<': signed/unsigned mismatch
   (compiling source file 'MinecraftClone/src/main.cpp')
   
-D:\Projekti\BloxCraft\MinecraftClone\src\Renderer.h(206,15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Projekti\BloxCraft\MinecraftClone\assets\Models\Grass.hpp(74,30): warning C4018: '<': signed/unsigned mismatch
   (compiling source file 'MinecraftClone/src/main.cpp')
   
   Camera.cpp
@@ -19,6 +23,6 @@ D:\Projekti\BloxCraft\MinecraftClone\src\Player\Camera.cpp(60,10): warning C4244
 MinecraftClone\x64\Release\glad.obj : warning LNK4042: object specified more than once; extras ignored
   Generating code
   Previous IPDB not found, fall back to full compilation.
-  All 491 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 706 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   MinecraftClone.vcxproj -> D:\Projekti\BloxCraft\x64\Release\MinecraftClone.exe
