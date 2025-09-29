@@ -3,7 +3,7 @@
 D:\Projekti\BloxCraft\MinecraftClone\assets\Models\Cube.hpp(70,30): warning C4018: '<': signed/unsigned mismatch
   (compiling source file 'MinecraftClone/src/main.cpp')
   
-D:\Projekti\BloxCraft\MinecraftClone\assets\Models\Grass.hpp(74,30): warning C4018: '<': signed/unsigned mismatch
+D:\Projekti\BloxCraft\MinecraftClone\assets\Models\Grass.hpp(77,30): warning C4018: '<': signed/unsigned mismatch
   (compiling source file 'MinecraftClone/src/main.cpp')
   
   MinecraftClone.vcxproj -> D:\Projekti\BloxCraft\x64\Debug\MinecraftClone.exe

@@ -91,43 +91,43 @@ public:
 		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
 		
 
-		Cube cube(Material::emerald, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f));
+		Cube cube(Material::white_plastic, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f));
 		cube.Initialize();
 
-		Grass cube1(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube1(Material::white_plastic, glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube1.Initialize();
-		Grass cube2(glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube2(Material::white_plastic, glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube2.Initialize();
-		Grass cube3(glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube3(Material::white_plastic, glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube3.Initialize();
-		Grass cube4(glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube4(Material::white_plastic, glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube4.Initialize();
-		Grass cube5(glm::vec3(-2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube5(Material::white_plastic, glm::vec3(-2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube5.Initialize();
 
-		Grass cube11(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube11(Material::white_plastic, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube11.Initialize();
-		Grass cube12(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube12(Material::white_plastic, glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube12.Initialize();
-		Grass cube13(glm::vec3(2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube13(Material::white_plastic, glm::vec3(2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube13.Initialize();
-		Grass cube14(glm::vec3(-1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube14(Material::white_plastic, glm::vec3(-1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube14.Initialize();
-		Grass cube15(glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube15(Material::white_plastic, glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube15.Initialize();
 
-		Grass cube21(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube21(Material::white_plastic, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube21.Initialize();
-		Grass cube22(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube22(Material::white_plastic, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube22.Initialize();
-		Grass cube23(glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube23(Material::white_plastic, glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube23.Initialize();
-		Grass cube24(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube24(Material::white_plastic, glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube24.Initialize();
-		Grass cube25(glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube25(Material::white_plastic, glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube25.Initialize();
 
-		Lamp lamp(glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(-1.0f, -0.5f, -0.5f), glm::vec3(0.25f));
+		Lamp lamp(glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(-1.0f, 2.5f, -0.5f), glm::vec3(0.25f));
 		lamp.Initialize();
 
 

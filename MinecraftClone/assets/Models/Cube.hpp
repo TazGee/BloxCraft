@@ -72,7 +72,7 @@ public:
 			indices[i] = i;
 		}
 
-		Texture tex1("MinecraftClone/assets/images/anja.jpg", "texture1");
+		Texture tex1("MinecraftClone/assets/images/anja.jpg", "material.diffuse");
 		tex1.load(true);
 
 		meshes.push_back(Mesh(Vertex::genList(vertices, noVertices), indices, { tex1 }));
