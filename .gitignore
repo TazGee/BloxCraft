@@ -35,10 +35,9 @@
 *.a
 *.lib
 
-# Executables
-*.exe
-*.out
-*.app
-
 # debug information files
 *.dwo
+
+# exec folders
+x64/
+BloxEngine/x64/
