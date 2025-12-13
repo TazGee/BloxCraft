@@ -15,9 +15,9 @@
 #include "Graphics/Shader.h"
 #include "Graphics/Texture.h"
 
-#include "MinecraftClone/assets/Models/Cube.hpp"
-#include "MinecraftClone/assets/Models/Grass.hpp"
-#include "MinecraftClone/assets/Models/Lamp.hpp"
+#include "BloxEngine/assets/Models/Cube.hpp"
+#include "BloxEngine/assets/Models/Grass.hpp"
+#include "BloxEngine/assets/Models/Lamp.hpp"
 
 #include "IO/Keyboard.h"
 #include "IO/Mouse.h"
@@ -88,10 +88,10 @@ public:
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		//Shader-i
-		Shader sh("MinecraftClone/assets/vertex_core.glsl", "MinecraftClone/assets/fragment_core.glsl");
+		Shader sh("BloxEngine/assets/vertex_core.glsl", "BloxEngine/assets/fragment_core.glsl");
 		
 
-		Cube cube(Material::white_plastic, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f));
+		Grass cube(Material::white_plastic, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f));
 		cube.Initialize();
 
 		Grass cube1(Material::white_plastic, glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));

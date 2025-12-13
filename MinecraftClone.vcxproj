@@ -24,6 +24,7 @@
     <ProjectGuid>{73527c7f-d26c-47ad-b005-ef2d9274e117}</ProjectGuid>
     <RootNamespace>MinecraftClone</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>BloxEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -139,45 +140,45 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Linking\src\glad.c" />
-    <ClCompile Include="MinecraftClone\lib\stb.cpp" />
-    <ClCompile Include="MinecraftClone\src\glad.c" />
-    <ClCompile Include="MinecraftClone\src\Graphics\Material.cpp" />
-    <ClCompile Include="MinecraftClone\src\Graphics\Mesh.cpp" />
-    <ClCompile Include="MinecraftClone\src\Graphics\Model.cpp" />
-    <ClCompile Include="MinecraftClone\src\Graphics\Texture.cpp" />
-    <ClCompile Include="MinecraftClone\src\IO\Keyboard.cpp" />
-    <ClCompile Include="MinecraftClone\src\IO\Mouse.cpp" />
-    <ClCompile Include="MinecraftClone\src\main.cpp" />
-    <ClCompile Include="MinecraftClone\src\Player\Camera.cpp" />
-    <ClCompile Include="MinecraftClone\src\Graphics\Shader.cpp" />
+    <ClCompile Include="BloxEngine\lib\stb.cpp" />
+    <ClCompile Include="BloxEngine\src\glad.c" />
+    <ClCompile Include="BloxEngine\src\Graphics\Material.cpp" />
+    <ClCompile Include="BloxEngine\src\Graphics\Mesh.cpp" />
+    <ClCompile Include="BloxEngine\src\Graphics\Model.cpp" />
+    <ClCompile Include="BloxEngine\src\Graphics\Texture.cpp" />
+    <ClCompile Include="BloxEngine\src\IO\Keyboard.cpp" />
+    <ClCompile Include="BloxEngine\src\IO\Mouse.cpp" />
+    <ClCompile Include="BloxEngine\src\main.cpp" />
+    <ClCompile Include="BloxEngine\src\Player\Camera.cpp" />
+    <ClCompile Include="BloxEngine\src\Graphics\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MinecraftClone\assets\fragment_core.glsl" />
-    <None Include="MinecraftClone\assets\lamp.fs" />
-    <None Include="MinecraftClone\assets\vertex_core.glsl" />
-    <None Include="MinecraftClone\glfw3.dll" />
+    <None Include="BloxEngine\assets\fragment_core.glsl" />
+    <None Include="BloxEngine\assets\lamp.fs" />
+    <None Include="BloxEngine\assets\vertex_core.glsl" />
+    <None Include="BloxEngine\glfw3.dll" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MinecraftClone\assets\Models\Cube.hpp" />
-    <ClInclude Include="MinecraftClone\assets\Models\Grass.hpp" />
-    <ClInclude Include="MinecraftClone\assets\Models\Lamp.hpp" />
-    <ClInclude Include="MinecraftClone\src\Graphics\Material.h" />
-    <ClInclude Include="MinecraftClone\src\Graphics\Mesh.h" />
-    <ClInclude Include="MinecraftClone\src\Graphics\Model.h" />
-    <ClInclude Include="MinecraftClone\src\Graphics\Texture.h" />
-    <ClInclude Include="MinecraftClone\src\IO\Keyboard.h" />
-    <ClInclude Include="MinecraftClone\src\IO\Mouse.h" />
-    <ClInclude Include="MinecraftClone\src\Player\Camera.h" />
-    <ClInclude Include="MinecraftClone\src\Renderer.h" />
+    <ClInclude Include="BloxEngine\assets\Models\Cube.hpp" />
+    <ClInclude Include="BloxEngine\assets\Models\Grass.hpp" />
+    <ClInclude Include="BloxEngine\assets\Models\Lamp.hpp" />
+    <ClInclude Include="BloxEngine\src\Graphics\Material.h" />
+    <ClInclude Include="BloxEngine\src\Graphics\Mesh.h" />
+    <ClInclude Include="BloxEngine\src\Graphics\Model.h" />
+    <ClInclude Include="BloxEngine\src\Graphics\Texture.h" />
+    <ClInclude Include="BloxEngine\src\IO\Keyboard.h" />
+    <ClInclude Include="BloxEngine\src\IO\Mouse.h" />
+    <ClInclude Include="BloxEngine\src\Player\Camera.h" />
+    <ClInclude Include="BloxEngine\src\Renderer.h" />
     <ClInclude Include="Linking\include\stb_image.h" />
-    <ClInclude Include="MinecraftClone\src\Graphics\Shader.h" />
+    <ClInclude Include="BloxEngine\src\Graphics\Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="MinecraftClone\assets\images\anja.jpg" />
-    <Image Include="MinecraftClone\assets\images\grass.jpg" />
-    <Image Include="MinecraftClone\assets\images\img.jpg" />
-    <Image Include="MinecraftClone\assets\images\tx1.jpg" />
+    <Image Include="BloxEngine\assets\images\anja.jpg" />
+    <Image Include="BloxEngine\assets\images\grass.jpg" />
+    <Image Include="BloxEngine\assets\images\img.jpg" />
+    <Image Include="BloxEngine\assets\images\tx1.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
