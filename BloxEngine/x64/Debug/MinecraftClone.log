@@ -1,0 +1,12 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(538,5): warning MSB8028: The intermediate directory (BloxEngine\x64\Debug\) contains files shared from another project (MinecraftClone.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1129,5): warning MSB8027: Two or more files with the name of glad.c will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Linking\src\glad.c, BloxEngine\src\glad.c.
+  Shader.cpp
+  main.cpp
+D:\Projekti\BloxCraft\BloxEngine\assets\Models\Cube.hpp(70,30): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file 'BloxEngine/src/main.cpp')
+  
+D:\Projekti\BloxCraft\BloxEngine\assets\Models\Grass.hpp(78,30): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file 'BloxEngine/src/main.cpp')
+  
+  Generating Code...
+  MinecraftClone.vcxproj -> D:\Projekti\BloxCraft\x64\Debug\BloxEngine.exe
