@@ -118,7 +118,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLFW\glfw3.lib;opengl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLFW\glfw3.lib;assimp\assimp-vc143-mtd.lib;opengl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BloxEngine\src\Graphics\Light.cpp" />
     <ClCompile Include="Linking\src\glad.c" />
     <ClCompile Include="BloxEngine\lib\stb.cpp" />
     <ClCompile Include="BloxEngine\src\glad.c" />
@@ -163,6 +164,7 @@
     <ClInclude Include="BloxEngine\assets\Models\Cube.hpp" />
     <ClInclude Include="BloxEngine\assets\Models\Grass.hpp" />
     <ClInclude Include="BloxEngine\assets\Models\Lamp.hpp" />
+    <ClInclude Include="BloxEngine\src\Graphics\Light.h" />
     <ClInclude Include="BloxEngine\src\Graphics\Material.h" />
     <ClInclude Include="BloxEngine\src\Graphics\Mesh.h" />
     <ClInclude Include="BloxEngine\src\Graphics\Model.h" />

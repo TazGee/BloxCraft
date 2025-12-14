@@ -14,6 +14,7 @@
 
 #include "Graphics/Shader.h"
 #include "Graphics/Texture.h"
+#include "Graphics/Light.h"
 
 #include "BloxEngine/assets/Models/Cube.hpp"
 #include "BloxEngine/assets/Models/Grass.hpp"
@@ -57,7 +58,7 @@ public:
 		glfwInit();
 		std::cout << " DONE!" << std::endl;
 
-		//Hitn-ovanje da je OpenGL V3.3
+		//Hint-ovanje da je OpenGL V3.3
 		HintGLFW();
 
 		//MAC Kompatibilnost
@@ -90,45 +91,52 @@ public:
 		//Shader-i
 		Shader sh("BloxEngine/assets/vertex_core.glsl", "BloxEngine/assets/fragment_core.glsl");
 		
-
-		Grass cube(Material::white_plastic, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f));
+		Cube cube(Material::black_rubber, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f));
 		cube.Initialize();
 
-		Grass cube1(Material::white_plastic, glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube1(Material::black_rubber, glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube1.Initialize();
-		Grass cube2(Material::white_plastic, glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube2(Material::black_rubber, glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube2.Initialize();
-		Grass cube3(Material::white_plastic, glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube3(Material::black_rubber, glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube3.Initialize();
-		Grass cube4(Material::white_plastic, glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube4(Material::black_rubber, glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube4.Initialize();
-		Grass cube5(Material::white_plastic, glm::vec3(-2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
+		Grass cube5(Material::black_rubber, glm::vec3(-2.0f, 0.0f, -1.0f), glm::vec3(1.0f));
 		cube5.Initialize();
 
-		Grass cube11(Material::white_plastic, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube11(Material::black_rubber, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube11.Initialize();
-		Grass cube12(Material::white_plastic, glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube12(Material::black_rubber, glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube12.Initialize();
-		Grass cube13(Material::white_plastic, glm::vec3(2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube13(Material::black_rubber, glm::vec3(2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube13.Initialize();
-		Grass cube14(Material::white_plastic, glm::vec3(-1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube14(Material::black_rubber, glm::vec3(-1.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube14.Initialize();
-		Grass cube15(Material::white_plastic, glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
+		Grass cube15(Material::black_rubber, glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(1.0f));
 		cube15.Initialize();
 
-		Grass cube21(Material::white_plastic, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube21(Material::black_rubber, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube21.Initialize();
-		Grass cube22(Material::white_plastic, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube22(Material::black_rubber, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube22.Initialize();
-		Grass cube23(Material::white_plastic, glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube23(Material::black_rubber, glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube23.Initialize();
-		Grass cube24(Material::white_plastic, glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube24(Material::black_rubber, glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube24.Initialize();
-		Grass cube25(Material::white_plastic, glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+		Grass cube25(Material::black_rubber, glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 		cube25.Initialize();
 
-		Lamp lamp(glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(-1.0f, 2.5f, -0.5f), glm::vec3(0.25f));
+		Lamp lamp(glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), 1.0f, 0.07f, 0.032f, glm::vec3(-1.5f, 2.5f, -0.5f), glm::vec3(0.25f));
 		lamp.Initialize();
+
+		DirLight dirLight = { glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.1f), glm::vec3(0.4f), glm::vec3(0.75f) };
+
+		SpotLight sl = { camera.cameraPos, camera.cameraFront, 
+			glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(20.0f)),
+			1.0f, 0.07f, 0.032f,
+			glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(1.0f)
+		};
 
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
@@ -161,9 +169,15 @@ public:
 			sh.set3Float("light.position", lamp.pos);
 			sh.set3Float("viewPos", camera.cameraPos);
 
-			sh.set3Float("light.ambient", lamp.ambient);
-			sh.set3Float("light.diffuse", lamp.diffuse);
-			sh.set3Float("light.specular", lamp.specular);
+			sl.position = camera.cameraPos;
+			sl.direction = camera.cameraFront;
+			sl.render(0, sh);
+			sh.setInt("noSpotLights", 1);
+
+			dirLight.render(sh);
+
+			lamp.pointLight.render(0, sh);
+			sh.setInt("noPointLights", 1);
 
 			sh.SetMat4("view", view);
 			sh.SetMat4("projection", projection);

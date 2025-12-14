@@ -95,8 +95,8 @@ public:
 		shader.SetMat4("model", model);
 
 		shader.set3Float("material.ambient", material.ambient);
-		shader.set3Float("material.specular", material.specular);
-		shader.set3Float("material.diffuse", material.diffuse);
+		//shader.set3Float("material.specular", material.specular);
+		//shader.set3Float("material.diffuse", material.diffuse);
 		shader.setFloat("material.shininess", material.shininess);
 
 		Model::Render(shader);
