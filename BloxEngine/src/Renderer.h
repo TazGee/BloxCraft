@@ -132,11 +132,11 @@ public:
 
 		DirLight dirLight = { glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.1f), glm::vec3(0.4f), glm::vec3(0.75f) };
 
-		SpotLight sl = { camera.cameraPos, camera.cameraFront, 
+		/*SpotLight sl = {camera.cameraPos, camera.cameraFront,
 			glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(20.0f)),
 			1.0f, 0.07f, 0.032f,
 			glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(1.0f)
-		};
+		};*/
 
 
 		std::cout << "\n=-------------------------------=\nRenderer started successfully!\n=-------------------------------=" << std::endl;
@@ -169,10 +169,10 @@ public:
 			sh.set3Float("light.position", lamp.pos);
 			sh.set3Float("viewPos", camera.cameraPos);
 
-			sl.position = camera.cameraPos;
-			sl.direction = camera.cameraFront;
-			sl.render(0, sh);
-			sh.setInt("noSpotLights", 1);
+			//sl.position = camera.cameraPos;
+			//sl.direction = camera.cameraFront;
+			//sl.render(0, sh);
+			//sh.setInt("noSpotLights", 1);
 
 			dirLight.render(sh);
 
